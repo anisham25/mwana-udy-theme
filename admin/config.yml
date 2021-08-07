@@ -1,263 +1,1768 @@
 backend:
-  name: "git-gateway"
+  name: git-gateway
   accept_roles:
-    - "admin"
-    - "editor"
-media_folder: "static/images"
+    - admin
+    - editor
+media_folder: theme/assets/images
+public_folder: /assets/images
 collections:
-  - name: "pages"
-    label: "Pages"
-    folder: "site/pages"
-    identifier_field: "title"
-    extension: "md"
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
     create: false
     delete: false
-    slug: "{{slug}}"
+    slug: '{{slug}}'
     editor:
       preview: false
+    folder: cms/pages
     fields:
-      - label: "Title"
-        name: "title"
-        widget: "string"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "{{slug}}.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
         collapsed: true
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
+          - label: Title
+            name: title
+            widget: string
             required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
+          - label: Description
+            name: description
+            widget: string
             required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
             required: false
             media_library:
               config:
                 multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
             required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
             required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
             required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
             required: false
-  - name: "team_members"
-    label: "Team Members"
-    folder: "site/team-members"
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: globe_points
+    label: Globe Points
+    folder: cms/globe-points
     create: true
-    identifier_field: "name"
-    extension: "md"
-    slug: "{{slug}}"
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_lat
+        label: lat
+        widget: string
+        required: false
+      - hint: ''
+        name: f_long
+        label: long
+        widget: string
+        required: false
+      - hint: ''
+        name: f_hovertext
+        label: hoverText
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: globe_points
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[globe-points].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: partners
+    label: Partners
+    folder: cms/partners
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_link
+        label: Link
+        widget: string
+        required: true
+      - hint: ''
+        name: f_image
+        label: Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: partners
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[partners].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: team
+    label: Teams
+    folder: cms/team
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_image
+        label: Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_location
+        label: Location
+        widget: string
+        required: false
+      - hint: ''
+        name: f_position
+        label: Position
+        widget: string
+        required: false
+      - hint: ''
+        name: f_link
+        label: Link
+        widget: string
+        required: false
+      - hint: ''
+        name: f_admin
+        label: Admin?
+        widget: boolean
+        required: false
+      - hint: ''
+        name: f_medical-board
+        label: Medical Board?
+        widget: boolean
+        required: false
+      - hint: ''
+        name: f_advisor
+        label: Advisor?
+        widget: boolean
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: team
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[team].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
     editor:
       preview: false
-    fields:
-      - label: "Tags"
-        widget: "hidden"
-        name: "tags"
-        default: "team_members"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "single-team-members.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
-        collapsed: true
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
         fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
             required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
-            required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
-            required: false
-            media_library:
-              config:
-                multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
-            required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
-            required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
-            required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
-            required: false
-      - name: "role"
-        label: "Role"
-        widget: "string"
-        required: false
-      - widget: "object"
-        name: "image"
-        label: "Image"
-        fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
+          - name: favicon
+            label: Favicon
+            widget: image
             allow_multiple: false
             required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
-            required: false
-      - name: "email"
-        label: "Email (Email)"
-        widget: "string"
-        required: false
-      - name: "linkedin"
-        label: "LinkedIn (URL)"
-        widget: "string"
-        required: false
-      - name: "twitter"
-        label: "Website (URL)"
-        widget: "string"
-        required: false
-      - name: "name"
-        label: "Name"
-        widget: "string"
-        required: true
-      - name: "created-on"
-        label: "Created On"
-        widget: "datetime"
-        required: false
-      - name: "updated-on"
-        label: "Updated On"
-        widget: "datetime"
-        required: false
-      - name: "published-on"
-        label: "Published On"
-        widget: "datetime"
-        required: false
-  - name: "advisors"
-    label: "Advisors"
-    folder: "site/advisors"
-    create: true
-    identifier_field: "name"
-    extension: "md"
-    slug: "{{slug}}"
-    editor:
-      preview: false
-    fields:
-      - label: "Tags"
-        widget: "hidden"
-        name: "tags"
-        default: "advisors"
-      - label: "Publish Date"
-        name: "date"
-        widget: "datetime"
-      - label: "Layout"
-        widget: "hidden"
-        name: "layout"
-        default: "single-advisors.html"
-      - label: "Seo"
-        name: "seo"
-        widget: "object"
-        collapsed: true
-        fields:
-          - label: "Title"
-            name: "title"
-            widget: "string"
-            required: false
-          - label: "Description"
-            name: "description"
-            widget: "string"
-            required: false
-          - label: "Open Graph Image"
-            name: "og:image"
-            widget: "image"
-            required: false
-            media_library:
-              config:
-                multiple: false
-          - label: "Twitter Card"
-            name: "twitter:card"
-            widget: "string"
-            default: "summary"
-            required: false
-          - label: "Twitter Site"
-            name: "twitter:site"
-            widget: "string"
-            required: false
-          - label: "Twitter Creator"
-            name: "twitter:creator"
-            widget: "string"
-            required: false
-          - label: "Additional HTML tags"
-            name: "additional_tags"
-            widget: "text"
-            required: false
-      - name: "role"
-        label: "Role"
-        widget: "string"
-        required: false
-      - name: "linkedin"
-        label: "LinkedIn (URL)"
-        widget: "string"
-        required: false
-      - widget: "object"
-        name: "headshot"
-        label: "Headshot"
-        fields:
-          - widget: "image"
-            name: "url"
-            label: "Image"
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
             allow_multiple: false
             required: false
-          - widget: "string"
-            name: "alt"
-            label: "Alt Text"
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
             required: false
-      - name: "name"
-        label: "Name"
-        widget: "string"
-        required: true
-      - name: "created-on"
-        label: "Created On"
-        widget: "datetime"
-        required: false
-      - name: "updated-on"
-        label: "Updated On"
-        widget: "datetime"
-        required: false
-      - name: "published-on"
-        label: "Published On"
-        widget: "datetime"
-        required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+          - hint: 'Original color: #2b2a35'
+            name: color_-69b66a9c
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #545465'
+            name: color_-671f6560
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fff'
+            name: color_1174a3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #4966f7'
+            name: color_-688d46c7
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #7756fd'
+            name: color_-638b601e
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f6f6f6'
+            name: color_-134f6c6d
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.06)'
+            name: color_-665baf0b
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.04)'
+            name: color_-665baf49
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #334ac0'
+            name: color_-6a96f423
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.12)'
+            name: color_-665babc6
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.08)'
+            name: color_-665baecd
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #8960ff'
+            name: color_-61b9faa2
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #586ee0'
+            name: color_-66e5d560
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f2f2f2'
+            name: color_-1387d979
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #dddfe5'
+            name: color_-1431192b
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.16)'
+            name: color_-665bab4a
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #000'
+            name: color_10a32d
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(84, 84, 101, 0.82)'
+            name: color_-2d8d8a21
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(43, 42, 53, 0.3)'
+            name: color_7c74abff
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(84, 84, 101, 0.6)'
+            name: color_-6cd304bd
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #1c1d22'
+            name: color_-6b5d94f8
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 96.5%, 0)'
+            name: color_-4148bdd7
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(43, 42, 53, 0.2)'
+            name: color_7c74abe0
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(43, 42, 53, 0.5)'
+            name: color_7c74ac3d
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #654ec2'
+            name: color_-655c2c3e
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.6)'
+            name: color_-770667e2
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #333'
+            name: color_10aed0
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #5f6264'
+            name: color_-645e6152
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #424648'
+            name: color_-68f0da19
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(53, 59, 81, 0)'
+            name: color_-4973657c
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(53, 59, 81, 0.55)'
+            name: color_74343a60
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(53, 59, 81, 0.95)'
+            name: color_74344964
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f1f1f1'
+            name: color_-1395f4bc
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #051923'
+            name: color_-6f9b482f
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #997ee9'
+            name: color_-6003e6fb
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #8c54ff'
+            name: color_-5f6a84d3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #7b41f1'
+            name: color_-612df4ca
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(32, 27, 61, 0.6)'
+            name: color_18304da0
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(238, 230, 255, 0.44)'
+            name: color_4e58d9b1
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #5b3acc'
+            name: color_-64976662
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(32, 27, 61, 0.22)'
+            name: color_-1226a764
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(238, 230, 255, 0)'
+            name: color_67792cf3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #6d6d6d'
+            name: color_-62c4fbd3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(155, 158, 184, 0.22)'
+            name: color_-d0edb3f
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #7b88a8'
+            name: color_-612c099b
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.07)'
+            name: color_-665baeec
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #1a1e27'
+            name: color_-6b79c034
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(137, 96, 255, 0.05)'
+            name: color_28edd166
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(88, 110, 224, 0.06)'
+            name: color_-3dcfe7a7
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(88, 110, 224, 0.22)'
+            name: color_-3dcfe0a1
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ffd9c4'
+            name: color_-10abe217
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #867163'
+            name: color_-61e3cf08
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #dadada'
+            name: color_-145b7266
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #00d4ff'
+            name: color_-6fca9b0d
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #0a2540'
+            name: color_-6d2ed86d
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f3efff'
+            name: color_-137972ef
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #adbdcc'
+            name: color_-19509358
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #00bfff'
+            name: color_-6fcac819
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #e30b1d'
+            name: color_-154678aa
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #07db7c'
+            name: color_-6f674f8c
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #e4f000'
+            name: color_-15209124
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #143c54'
+            name: color_-6df3004b
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.58)'
+            name: color_-665b9c08
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(3, 175, 255, 0.47)'
+            name: color_60cf4132
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #0084d1'
+            name: color_-6fde9bd4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #1e3b4d'
+            name: color_-6b40844a
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #e9d8d8'
+            name: color_-14dae001
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ede7fd'
+            name: color_-127c7c4e
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #6546be'
+            name: color_-655cdc99
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #130f49'
+            name: color_-6e0269c0
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f0eaff'
+            name: color_-13a3cc37
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #b4b2c5'
+            name: color_-1a40dec9
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(85, 82, 124, 0.25)'
+            name: color_-59bd6aac
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #a14949'
+            name: color_-1c34d263
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #009da3'
+            name: color_-6fdd73a0
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(34, 34, 34, 0.16)'
+            name: color_3416113
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #008085'
+            name: color_-6fdeb028
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #dbdbdb'
+            name: color_-144d5723
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #374252'
+            name: color_-6a5f4c1e
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #2d323e'
+            name: color_-699a777a
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #e4e4e4'
+            name: color_-1520f010
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f9f9f9'
+            name: color_-13251aa4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #3b5998'
+            name: color_-6800ca4b
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(55, 66, 82, 0.8)'
+            name: color_7770c019
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(55, 66, 82, 0.9)'
+            name: color_7770c038
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 157, 163, 0.12)'
+            name: color_-3635321
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #e9f2f5'
+            name: color_-14da0d8e
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(45, 62, 80, 0.12)'
+            name: color_37745cc5
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.1)'
+            name: color_-2c979a3a
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #02c908'
+            name: color_-6faed45d
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f3f3f3'
+            name: color_-1379be36
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #1875f0'
+            name: color_-6db9778e
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #32343a'
+            name: color_-6aa62e8f
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(51, 51, 51, 0.1)'
+            name: color_-4cafcec6
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f1f6fd'
+            name: color_-1395e1c4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(51, 51, 51, 0.09)'
+            name: color_-494a0ba2
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(51, 51, 51, 0.5)'
+            name: color_-4cafce4a
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(24, 117, 240, 0.1)'
+            name: color_-63b9b089
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(2, 201, 8, 0.1)'
+            name: color_-572fd5d3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(106, 117, 216, 0.1)'
+            name: color_-4278b853
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #a279f9'
+            name: color_-1c2557b7
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(219, 226, 235, 0.5)'
+            name: color_-5ab390b6
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(38, 61, 73, 0.9)'
+            name: color_-59932c26
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #2aa8ff'
+            name: color_-69afb837
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f8f8f8'
+            name: color_-133335e7
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #444'
+            name: color_10b2b1
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(137, 96, 255, 0.57)'
+            name: color_28ede469
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(255, 91, 151, 0.36)'
+            name: color_-5df4fe5b
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(137, 96, 255, 0.3)'
+            name: color_4ba49374
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(255, 145, 104, 0.36)'
+            name: color_-74f755cd
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #665aff'
+            name: color_-654daed1
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #d9d9e2'
+            name: color_-168fb4c6
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #34a1cd'
+            name: color_-6a751beb
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(255, 170, 170, 0.36)'
+            name: color_-992c3ea
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fff5f6'
+            name: color_-10ab07fe
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f66565'
+            name: color_-136547cf
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #d9f4ff'
+            name: color_-168ede7a
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #e9f9ff'
+            name: color_-14d9f316
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f7f6fb'
+            name: color_-134154c0
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ff5757'
+            name: color_-10c14c99
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #efeade'
+            name: color_-125fafdf
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(0, 0, 0, 0.2)'
+            name: color_-2c979a1b
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #eb7500'
+            name: color_-12ada2a2
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.89)'
+            name: color_-69c68ac3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.74)'
+            name: color_-69c68f1f
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fd7b9e'
+            name: color_-10dbf0c8
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fee7be'
+            name: color_-10b98ca9
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.24)'
+            name: color_-69c6a1e4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.9)'
+            name: color_-77066785
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(22, 0%, 100%, 0.86)'
+            name: color_-127ab700
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #5c5c5c'
+            name: color_-64886433
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #0e121c'
+            name: color_-6cf6fa35
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ff8ad8'
+            name: color_-10bf4c20
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #0d0d36'
+            name: color_-6d04ca52
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fffffb'
+            name: color_-10aa4fe1
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #8437fd'
+            name: color_-6201b2ff
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #3c46fb'
+            name: color_-67f32ccf
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fd3f3f'
+            name: color_-10ddb3f9
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #18154c'
+            name: color_-6dbc37a3
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #e8e9ff'
+            name: color_-14e87ef6
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(249, 248, 249, 0)'
+            name: color_-2765c9cf
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0)'
+            name: color_5274f026
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(232, 233, 255, 0.45)'
+            name: color_7e76a099
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(24, 21, 76, 0.16)'
+            name: color_-322c5dca
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.5)'
+            name: color_-77066801
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.1)'
+            name: color_-7706687d
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ffe8ae'
+            name: color_-10ab7186
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #ff8177'
+            name: color_-10c005c4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(255, 129, 119, 0)'
+            name: color_-2477f3d4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(132, 55, 253, 0)'
+            name: color_55b3e159
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(51, 61, 240, 0)'
+            name: color_11db0a48
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: rgba(36, 12, 46, 0.1)'
+            name: color_-37ce5e94
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #fff75a'
+            name: color_-10ab0640
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: hsla(0, 0%, 100%, 0.8)'
+            name: color_-770667a4
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #5e45c2'
+            name: color_-646d50dd
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #f7f8f9'
+            name: color_-13414d67
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #eef0f3'
+            name: color_-126e0ae6
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+          - hint: 'Original color: #c4c4c4'
+            name: color_-188b8a4a
+            label: Color
+            widget: color
+            required: true
+            enableAlpha: true
+            allowInput: true
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i77dce4f2
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i29921201
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i6482112c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 794adb8f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i64976fc0
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: b48795b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i4ea1af75
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i315ef59a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: ia323883
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 51310a6b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1f66d296
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i609ef028
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4a4055fa
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: id1b4a72
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i37514d88
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i21eaf3e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i28dcd642
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 6628f9e3
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i7818776
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3abf074c
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 5f10a8c5
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 176afefe
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
